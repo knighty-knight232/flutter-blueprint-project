@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
-  runApp(
-    const MaterialApp(
-      home: BallPage(
-        
-      )
-    )
-  );
+  runApp(const MaterialApp(home: BallPage()));
 }
 
 class BallPage extends StatelessWidget {
@@ -15,7 +10,7 @@ class BallPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Ball();
+    return const Ball();
   }
 }
 
@@ -27,8 +22,30 @@ class Ball extends StatefulWidget {
 }
 
 class _BallState extends State<Ball> {
+  int ballNumber = 1;
+  void rollBall(){
+    setState(() {
+      ballNumber = Random().nextInt(5) + 1;
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Ask me anything'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: TextButton(onPressed: (){
+              rollBall();
+            },
+                child: Image.asset('images/ball$ballNumber.png')
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
